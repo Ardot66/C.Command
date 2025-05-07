@@ -1,6 +1,6 @@
 SHELL = cmd
 
-DEPEND = $() Try CollectionsPlus
+DEPEND = $()
 BIN = Bin
 HEADER = Header
 SOURCE = Source/*

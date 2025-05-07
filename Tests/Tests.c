@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Command.h"
+#include "TestingUtilities.h"
 
 int CommandBody(int argc, char **argv)
 {
@@ -8,24 +9,28 @@ int CommandBody(int argc, char **argv)
 
 const Command Commands[] = 
 {
-    CommandInit("mycommand 1 2", CommandBody, "", ""),
-    //CommandInit("", CommandBody, "", "")
+    CommandInit("mycommand 12", CommandBody, "This command is a test", 
+        "\n"
+        "Line one of help, this is normal text\n"
+        "%i-h --help%pThis line is a test of the subcommand system\n"
+        "%i--humungus%pThis line is a second test of the subcommand system\n"
+    ),
+    CommandInit("3 4 5", CommandBody, "This command is another test", 
+        ""
+    ),
 };
 
 const size_t CommandCount = sizeof(Commands) / sizeof(Command);
 
 int main(int argc, char **argv)
 {
-    if(argc < 2)
+    printf("Printing help\n\n");
+
+    for(int x = 0; x < CommandCount; x++)
     {
-        printf("Please supply a command");
-        return 0;
+        PrintCommandHelp(Commands + x, 3, 15);
     }
 
-    const Command *command = FindCommand(Commands, CommandCount, argv[1]);
-
-    if(command == NULL)
-        return 0;
-
-    command->Command(argc, argv + 1);
+    TEST(FindCommand(Commands, CommandCount, "12"), ==, &Commands[0], p)
+    TEST(FindArg(4, (char *[]){"-h", "amogus", "hehehe", "--help"}, "-f --help", NULL), ==, 1, d)
 }
