@@ -4,6 +4,8 @@
 
 const Command *FindCommand(const Command *commands, const size_t commandCount, const char *commandName)
 {
+    printf("Run\n");
+
     for(size_t x = 0; x < commandCount; x++)
     {
         const Command *command = commands + x;
@@ -15,6 +17,7 @@ const Command *FindCommand(const Command *commands, const size_t commandCount, c
         {
             if(*aliases == '\0')
             {
+                printf("A%d\n", allMatched);
                 if(allMatched)
                     return command;
 
@@ -23,6 +26,7 @@ const Command *FindCommand(const Command *commands, const size_t commandCount, c
             
             if(*aliases == ' ')
             {
+                printf("B%d\n", allMatched);
                 if(allMatched)
                     return command;
 
@@ -32,6 +36,8 @@ const Command *FindCommand(const Command *commands, const size_t commandCount, c
                 continue;
             }
                 
+            printf("%c-%c\n", *aliases, *commandCur);
+
             allMatched &= *aliases == *commandCur;
 
             if(*commandCur != '\0')
