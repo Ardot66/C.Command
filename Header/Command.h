@@ -13,7 +13,7 @@ typedef struct Command
 
 #define CommandInit(aliases, command, helpSummary, help) (Command){aliases, command, helpSummary, help}
 
-const Command *FindCommand(const Command *commands, const size_t commandCount, const char *commandName);
+const Command *FindCommand(const Command **commands, const size_t commandCount, const char *commandName);
 int FindArg(int argCount, char **args, const char *flags, char **argDest);
 void PrintCommandSummary(const Command *command, const int padding);
 void PrintCommandHelp(const Command *command, const size_t indentation, const int padding);

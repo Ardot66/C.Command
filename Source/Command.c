@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "Command.h"
 
-const Command *FindCommand(const Command *commands, const size_t commandCount, const char *commandName)
+const Command *FindCommand(const Command **commands, const size_t commandCount, const char *commandName)
 {
     for(size_t x = 0; x < commandCount; x++)
     {
-        const Command *command = commands + x;
+        const Command *command = commands[x];
 
         const char *aliases = command->Aliases;
         const char *commandCur = commandName;
